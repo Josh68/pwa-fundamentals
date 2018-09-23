@@ -118,6 +118,46 @@ npm run watch
 
 (Pro tip: If everything looks like it works, but you can't access the page in your browser, make sure you're using *HTTPS*. Try [https://localhost:3000/](https://localhost:3000/).)
 
+##### Bypassing Shell Scripts (e.g., for issues on Windows)
+
+To set up and run the application without using shell scripts, run the following commands. Assumes your `cwd` is the root of the project.
+
+To generate certificates:
+
+```
+node ./server/gen-certs.js
+```
+
+To generate `vapid.json` for `web-push`:
+
+```
+web-push generate-vapid-keys --json > ./private/vapid.json
+```
+
+To clean up dist folder, recreate, and copy certs over:
+
+```
+rm -rf dist/*.pem && mkdir -p dist && cp private/*.pem dist/
+```
+
+If for some reason `npm run start` doesn't work:
+
+
+To run the client:
+
+```
+node server/asset-server/index.js
+```
+
+To run the server:
+
+```
+node server/api-server/index.js
+```
+
+Beyond this, refer to the `package.json` to convert NPM script calls to equivalent direct node calls.
+
+
 # Files and Folders
 
 This is a free-standing client/server Progressive Web App system, including
